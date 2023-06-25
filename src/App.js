@@ -28,7 +28,7 @@ export default function App() {
         deleteItem={handleDeletedItem}
         onToggleItem={handleToggleItem}
       />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }
@@ -97,7 +97,11 @@ function PackingList({ items, deleteItem, onToggleItem }) {
 function Item({ item, deleteItem, onToggleItem }) {
   return (
     <li>
-      <input type="checkbox" value={item.packed} onChange={() => onToggleItem(item.id)} />
+      <input
+        type="checkbox"
+        value={item.packed}
+        onChange={() => onToggleItem(item.id)}
+      />
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
@@ -106,10 +110,12 @@ function Item({ item, deleteItem, onToggleItem }) {
   );
 }
 
-function Stats() {
+function Stats({ items }) {
+  const numItems = items.length;
+
   return (
     <footer className="stats">
-      <em>💼 You have x items on your list and you already packed x (x%)</em>
+      <em>💼 You have {numItems} items on your list and you already packed x (x%)</em>
     </footer>
   );
 }
